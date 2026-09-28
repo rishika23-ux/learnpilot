@@ -1,5 +1,6 @@
 from functools import lru_cache
 from pathlib import Path
+from sqlalchemy.engine import URL
 
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -24,6 +25,16 @@ class Settings(BaseSettings):
     postgres_port: int = 5432
 
     jwt_secret_key: SecretStr
+    @property
+    def database_url(self) -> URL:
+        return URL.create(
+            drivername="postgresql+psycopg",
+            username=self.postgres_user,
+            password=self.postgres_password.get_secret_value(),
+            host=self.postgres_host,
+            port=self.postgres_port,
+            database=self.postgres_db,
+        )
 
 
 @lru_cache
