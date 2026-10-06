@@ -2,7 +2,7 @@ from fastapi import Depends, FastAPI, HTTPException
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
-
+from app.api.documents import router as documents_router
 from app.api.auth import router as auth_router
 from app.core.config import get_settings
 from app.db.session import get_db
@@ -12,6 +12,7 @@ settings = get_settings()
 app = FastAPI(title=settings.app_name)
 
 app.include_router(auth_router)
+app.include_router(documents_router)
 
 
 @app.get("/health")

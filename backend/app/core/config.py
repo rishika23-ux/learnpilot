@@ -23,6 +23,7 @@ class Settings(BaseSettings):
     postgres_db: str
     postgres_host: str = "localhost"
     postgres_port: int = 5432
+    environment: str = "development"
 
     jwt_secret_key: SecretStr
     @property
