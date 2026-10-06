@@ -3,12 +3,15 @@ from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 
+from app.api.auth import router as auth_router
 from app.core.config import get_settings
 from app.db.session import get_db
 
 settings = get_settings()
 
 app = FastAPI(title=settings.app_name)
+
+app.include_router(auth_router)
 
 
 @app.get("/health")
