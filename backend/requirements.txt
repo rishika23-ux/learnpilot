@@ -10,3 +10,4 @@ pydantic[email]
 pgvector
 pytest 
 httpx
+slowapi
